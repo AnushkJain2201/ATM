@@ -12,17 +12,23 @@ import javax.servlet.http.HttpSession;
 import models.ATM;
 import models.BankAccount;
 
-@WebServlet("/show_balance.do")
-public class ShowBalanceServlet extends HttpServlet {
+@WebServlet("/deposit.do")
+public class DepositMoneyServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
+        Integer balance = (Integer)session.getAttribute("balance");
+        int deposit = Integer.parseInt(request.getParameter("deposit"));
+
         ATM atm = (ATM)session.getAttribute("atm");
 
-        int balance = BankAccount.fetchBalance(atm);
+        BankAccount ba = new BankAccount(atm, balance);
 
-        session.setAttribute("balance", balance);
+        if(ba.depositMoney(deposit)) {
+            request.getRequestDispatcher("main.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("old_customer.jsp").forward(request, response);
+        }
 
-        request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 }
