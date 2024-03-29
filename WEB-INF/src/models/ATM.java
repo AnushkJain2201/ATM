@@ -62,7 +62,6 @@ public class ATM {
 
     public boolean login() {
         boolean flag = false;
-        System.out.println("Hello");
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
