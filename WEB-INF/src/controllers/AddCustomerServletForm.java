@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/old_customer_form.do")
-public class OldCustomerForm extends HttpServlet {
+public class AddCustomerServletForm extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("old_customer.jsp").forward(request, response);
+        request.getRequestDispatcher("new_customer.jsp").forward(request, response);
     }
 }
