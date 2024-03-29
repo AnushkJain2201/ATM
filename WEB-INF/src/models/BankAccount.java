@@ -1,11 +1,11 @@
 package models;
 
+
 public class BankAccount {
     private Integer BankAccount;
     private ATM atm;
     private Integer balance;
 
-    
     public Integer getBankAccount() {
         return BankAccount;
     }
