@@ -25,10 +25,35 @@ public class BankAccount {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb?user=root&password=1234");
 
-//             UPDATE table_name
-// SET column1 = value1, column2 = value2, ...
-// WHERE condition;
-// insert into bank_account (balance) value(?) where ATM_id=?
+            String query = "update bank_account set balance = ? where ATM_id= ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, total);
+            ps.setInt(2,  atm.getATM_id());
+
+            int result = ps.executeUpdate();
+
+            if (result == 1) {
+                flag = true;
+            }
+
+        } catch (ClassNotFoundException | SQLException x) {
+            x.printStackTrace();
+        }
+
+        return flag;
+    }
+
+    public boolean withdrawMoney(int withdraw) {
+        boolean flag = false;
+        int total = 0;
+        if(withdraw <= balance) {
+            total = balance - withdraw;
+        }
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb?user=root&password=1234");
 
             String query = "update bank_account set balance = ? where ATM_id= ?";
 
